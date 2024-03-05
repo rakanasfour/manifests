@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+  namespace: rakancloud
+  labels:
+    role: db
+    env: demo
+spec:
+  ports:
+  - port: 3307
+    targetPort: 3306
+  clusterIP: None
+  selector:
+    role: db

@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring
+  namespace: rakancloud
+  labels:
+    role: spring
+    env: demo
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 25%
+  selector:
+    matchLabels:
+      role: spring
+  template:
+    metadata:
+      labels:
+        role: spring
+    spec:
+      containers:
+      - name: spring
+        image: cloudacademydevops/api:v3
+        imagePullPolicy: Always
+        env:
+          - name: MYSQL_CONN_STR
+            value: mysqldb://mysql-0.mysql,mysql-1.mysql,mysql-2.mysql:3307/dealership_db?replicaSet=rs0
+          - name: MYSQL_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: mysql-secret
+                key: username
+          - name: MYSQL_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mysqldb-secret
+                key: password
+        ports:
+        - containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /ok
+            port: 8080
+          initialDelaySeconds: 2
+          periodSeconds: 5
+        readinessProbe:
+          httpGet:
+             path: /ok
+             port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
