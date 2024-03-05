@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: finance-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: finance-service
+  template:
+    metadata:
+      labels:
+        app: finance-service
+    spec:
+      containers:
+      - name: finance
+        image: 866934333672.dkr.ecr.us-east-2.amazonaws.com/vehicle-inventory-image:0.0.1
+        ports:
+        - containerPort: 5000

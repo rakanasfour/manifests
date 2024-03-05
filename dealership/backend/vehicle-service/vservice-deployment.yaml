@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vservice-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vservice-service
+  template:
+    metadata:
+      labels:
+        app: vservice-service
+    spec:
+      containers:
+      - name: vservice
+        image: 866934333672.dkr.ecr.us-east-2.amazonaws.com/vehicle-service-image
+        ports:
+        - containerPort: 8083
