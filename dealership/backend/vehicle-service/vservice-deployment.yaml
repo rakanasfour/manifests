@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: vservice-deployment
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: vservice-app

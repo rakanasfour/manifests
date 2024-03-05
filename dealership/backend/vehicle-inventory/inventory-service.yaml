@@ -7,6 +7,6 @@ spec:
     app: inventory-app
   ports:
     - protocol: TCP
-      port: 80
+      port: 8082
       targetPort: 8081
   type: LoadBalancer
