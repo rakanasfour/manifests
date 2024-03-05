@@ -6,11 +6,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: vservice-service
+      app: vservice-app
   template:
     metadata:
       labels:
-        app: vservice-service
+        app: vservice-app
     spec:
       containers:
       - name: vservice

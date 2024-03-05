@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: spring-deployment
+  name: inventory-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: spring-service
+      app: inventory-app
   template:
     metadata:
       labels:
-        app: spring-service
+        app: inventory-app
     spec:
       containers:
       - name: inventory
